@@ -28,13 +28,13 @@ func main() {
 	r := mux.NewRouter()
 	movies = append(movies, movie{ID: "1", Isbn: "438-1234567890", Title: "Movie One", Director: &director{Firstname: "John", Lastname: "Doe"}})
 	movies = append(movies, movie{ID: "2", Isbn: "438-1234567891", Title: "Movie Two", Director: &director{Firstname: "Jane", Lastname: "Doe"}})
+	log.Info("Server started on port 8000")
 	r.HandleFunc("/movies", getMovies).Methods("GET")
 	r.HandleFunc("/movies/{id}", getMovie).Methods("GET")
 	r.HandleFunc("/movies", createMovie).Methods("POST")
 	r.HandleFunc("/movies/{id}", updateMovie).Methods("PUT")
 	r.HandleFunc("/movies/{id}", deleteMovie).Methods("DELETE")
 	log.Fatal(http.ListenAndServe(":8000", r))
-	log.Info("Server started on port 8000")
 }
 
 func getMovies(w http.ResponseWriter, r *http.Request) {
